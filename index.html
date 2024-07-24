@@ -1,53 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>賺錢俱樂部 課前指引：職業成長之旅</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职业成长之旅 - 互动指引</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>賺錢俱樂部 課前指引：職業成長之旅</h1>
-    <div id="question-section" class="hidden">
-        <p id="question-text">請選擇你所服務的公司規模：</p>
-        <select id="user-input" onchange="submitAnswer()">
-            <option value="">-- 請選擇 --</option>
-            <option value="小型公司">小型公司</option>
-            <option value="中型公司">中型公司</option>
-            <option value="大型公司">大型公司</option>
-            <option value="超大型公司">超大型公司</option>
-            <option value="跨國公司">跨國公司</option>
-        </select>
-    </div>
-    <div id="work-type-section" class="hidden">
-        <p id="work-type-text">請選擇你的工作類型：</p>
-        <select id="work-type-input" onchange="submitWorkType()">
-            <option value="">-- 請選擇 --</option>
-            <option value="行政管理">行政管理</option>
-            <option value="銷售與市場">銷售與市場</option>
-            <option value="產品開發">產品開發</option>
-            <option value="客戶服務">客戶服務</option>
-            <option value="財務與法務">財務與法務</option>
-        </select>
-    </div>
-    <div id="job-level-section" class="hidden">
-        <p id="job-level-text">請選擇你的職務級別：</p>
-        <select id="job-level-input" onchange="submitJobLevel()">
-            <option value="">-- 請選擇 --</option>
-            <option value="基層員工">基層員工</option>
-            <option value="中層管理">中層管理</option>
-            <option value="高層管理">高層管理</option>
-            <option value="部門主管">部門主管</option>
-            <option value="處長或以上">處長或以上</option>
-        </select>
-    </div>
-    <div id="challenge-section" class="hidden">
-        <p id="challenge-text">請選擇你目前可能遇到的挑戰：</p>
-        <select id="challenge-input" onchange="submitChallenge()">
-            <option value="">-- 請選擇 --</option>
-        </select>
-    </div>
-    <div id="result-section" class="hidden"></div>
-    <button id="reload-button" class="hidden" onclick="reloadPage()">重新開始</button>
+    <header>
+        <h1>欢迎参加职业成长之旅!</h1>
+        <p class="highlight">请填写以下信息，我们将为您提供个性化的职业建议。</p>
+    </header>
+
+    <main>
+        <div class="section">
+            <h2>您的职业信息</h2>
+            <form id="careerForm">
+                <label for="companySize">公司规模:</label>
+                <select id="companySize" required>
+                    <option value="">请选择</option>
+                    <option value="1">1 (极小型)</option>
+                    <option value="2">2 (小型)</option>
+                    <option value="3">3 (中型)</option>
+                    <option value="4">4 (大型)</option>
+                    <option value="5">5 (超大型)</option>
+                </select>
+
+                <label for="jobCategory">职务类别:</label>
+                <select id="jobCategory" required>
+                    <option value="">请选择</option>
+                    <option value="management">管理</option>
+                    <option value="technical">技术</option>
+                    <option value="sales">销售</option>
+                    <option value="operations">运营</option>
+                    <option value="support">支持</option>
+                </select>
+
+                <label for="jobLevel">职级:</label>
+                <select id="jobLevel" required>
+                    <option value="">请选择</option>
+                    <option value="employee">普通员工</option>
+                    <option value="teamLead">团队负责人</option>
+                    <option value="manager">经理</option>
+                    <option value="director">总监</option>
+                    <option value="vp">副总裁</option>
+                </select>
+
+                <label for="fiveYearGoal">未来五年的目标:</label>
+                <select id="fiveYearGoal" required>
+                    <option value="">请选择</option>
+                    <option value="promotion">晋升到更高职位</option>
+                    <option value="expertise">成为领域专家</option>
+                    <option value="entrepreneurship">创业</option>
+                    <option value="workLifeBalance">提高工作生活平衡</option>
+                    <option value="careerChange">转换职业方向</option>
+                </select>
+
+                <button type="submit">获取建议</button>
+            </form>
+        </div>
+
+        <div id="result" class="section">
+            <h2>您的个性化建议</h2>
+            <div id="advice"></div>
+            <div id="risks"></div>
+            <div id="rewards"></div>
+        </div>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
