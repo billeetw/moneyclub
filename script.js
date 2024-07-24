@@ -5,6 +5,7 @@ fetch('data.json')
     .then(response => response.json())
     .then(data => {
         careerData = data;
+        console.log('Data loaded successfully');
     })
     .catch(error => console.error('Error loading career data:', error));
 
