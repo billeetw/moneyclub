@@ -3,10 +3,14 @@ let companySize, workType, jobLevel, data;
 function loadJSON(callback) {
     const xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'data.json', true); // 確保路徑正確
+    xobj.open('GET', 'data.json', true); // 确保路径正确
     xobj.onreadystatechange = function () {
-        if (xobj.readyState === 4 && xobj.status === 200) {
-            callback(JSON.parse(xobj.responseText));
+        if (xobj.readyState === 4) {
+            if (xobj.status === 200) {
+                callback(JSON.parse(xobj.responseText));
+            } else {
+                console.error('Failed to load JSON file');
+            }
         }
     };
     xobj.send(null);
@@ -15,6 +19,7 @@ function loadJSON(callback) {
 function initialize() {
     loadJSON(function(response) {
         data = response;
+        console.log('Data loaded:', data); // 确认数据已加载
         document.getElementById("question-section").classList.remove("hidden");
     });
 }
@@ -35,9 +40,11 @@ function submitJobLevel() {
     jobLevel = document.getElementById("job-level-input").value;
     document.getElementById("job-level-section").classList.add("hidden");
 
-    // 顯示挑戰選項
+    // 显示挑战选项
     const challengeSelect = document.getElementById("challenge-input");
     challengeSelect.innerHTML = '';
+    console.log('Challenges:', data.challenges); // 调试信息
+
     if (data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
         data.challenges[companySize][workType][jobLevel].forEach((challenge) => {
             const option = document.createElement("option");
@@ -48,7 +55,7 @@ function submitJobLevel() {
     } else {
         const option = document.createElement("option");
         option.value = "";
-        option.text = "無法找到對應的挑戰";
+        option.text = "无挑战可选";
         challengeSelect.appendChild(option);
     }
 
@@ -63,12 +70,12 @@ function submitChallenge() {
     if (data.feedback[challenge]) {
         const userFeedback = data.feedback[challenge];
         resultSection.innerHTML = `
-            <p><strong>挑戰：</strong> ${challenge}</p>
-            <p><strong>風險：</strong> ${userFeedback["風險"]}</p>
-            <p><strong>建議：</strong> ${userFeedback["建議"].join('<br>')}</p>
+            <p><strong>挑战：</strong> ${challenge}</p>
+            <p><strong>风险：</strong> ${userFeedback["风险"]}</p>
+            <p><strong>建议：</strong> ${userFeedback["建议"].join('<br>')}</p>
         `;
     } else {
-        resultSection.innerHTML = `<p>無法找到對應的反饋，請重新選擇。</p>`;
+        resultSection.innerHTML = `<p>无法找到对应的反馈，请重新选择。</p>`;
     }
 
     resultSection.classList.remove("hidden");
