@@ -3,7 +3,7 @@ let companySize, workType, jobLevel, data;
 function loadJSON(callback) {
     const xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'https://<你的用户名>.github.io/<你的仓库名>/data.json', true); // 替换为你的JSON文件URL
+    xobj.open('GET', 'data.json', true); // 使用相對路徑
     xobj.onreadystatechange = function () {
         if (xobj.readyState === 4 && xobj.status === "200") {
             callback(JSON.parse(xobj.responseText));
