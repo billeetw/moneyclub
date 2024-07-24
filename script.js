@@ -30,25 +30,27 @@ function initialize() {
 
 function submitAnswer() {
     companySize = document.getElementById("user-input").value;
+    console.log('Selected company size:', companySize); // 调试信息
     document.getElementById("question-section").classList.add("hidden");
     document.getElementById("work-type-section").classList.remove("hidden");
 }
 
 function submitWorkType() {
     workType = document.getElementById("work-type-input").value;
+    console.log('Selected work type:', workType); // 调试信息
     document.getElementById("work-type-section").classList.add("hidden");
     document.getElementById("job-level-section").classList.remove("hidden");
 }
 
 function submitJobLevel() {
     jobLevel = document.getElementById("job-level-input").value;
+    console.log('Selected job level:', jobLevel); // 调试信息
     document.getElementById("job-level-section").classList.add("hidden");
 
     // 显示挑战选项
     const challengeSelect = document.getElementById("challenge-input");
     challengeSelect.innerHTML = '';
 
-    // 调试信息
     console.log('Data:', data);
     console.log('Challenges:', data ? data.challenges : 'data is undefined');
     console.log('Company Size:', companySize);
@@ -62,11 +64,6 @@ function submitJobLevel() {
             option.text = challenge;
             challengeSelect.appendChild(option);
         });
-    } else {
-        const option = document.createElement("option");
-        option.value = "";
-        option.text = "无挑战可选";
-        challengeSelect.appendChild(option);
     }
 
     document.getElementById("challenge-section").classList.remove("hidden");
