@@ -5,7 +5,7 @@ function loadJSON(callback) {
     xobj.overrideMimeType("application/json");
     xobj.open('GET', 'data.json', true); // 確保路徑正確
     xobj.onreadystatechange = function () {
-        if (xobj.readyState === 4 && xobj.status === "200") {
+        if (xobj.readyState === 4 && xobj.status === 200) {
             callback(JSON.parse(xobj.responseText));
         }
     };
@@ -13,7 +13,7 @@ function loadJSON(callback) {
 }
 
 function initialize() {
-    loadJSON(function (response) {
+    loadJSON(function(response) {
         data = response;
         document.getElementById("question-section").classList.remove("hidden");
     });
