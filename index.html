@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>賺錢俱樂部 課前指引：職業成長之旅</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>賺錢俱樂部 課前指引：職業成長之旅</h1>
+    <div class="hidden" id="question-section">
+        <p id="question-text">請選擇你所服務的公司規模：</p>
+        <select id="user-input" onchange="submitAnswer()">
+            <option value="">-- 請選擇 --</option>
+            <option value="小型公司">小型公司</option>
+            <option value="中型公司">中型公司</option>
+            <option value="大型公司">大型公司</option>
+            <option value="超大型公司">超大型公司</option>
+            <option value="跨國公司">跨國公司</option>
+        </select>
+    </div>
+    <div class="hidden" id="work-type-section">
+        <p id="work-type-text">請選擇你的工作類型：</p>
+        <select id="work-type-input" onchange="submitWorkType()">
+            <option value="">-- 請選擇 --</option>
+            <option value="行政管理">行政管理</option>
+            <option value="銷售與市場">銷售與市場</option>
+            <option value="產品開發">產品開發</option>
+            <option value="客戶服務">客戶服務</option>
+            <option value="財務與法務">財務與法務</option>
+        </select>
+    </div>
+    <div class="hidden" id="job-level-section">
+        <p id="job-level-text">請選擇你的職務級別：</p>
+        <select id="job-level-input" onchange="submitJobLevel()">
+            <option value="">-- 請選擇 --</option>
+            <option value="基層員工">基層員工</option>
+            <option value="中層管理">中層管理</option>
+            <option value="高層管理">高層管理</option>
+            <option value="部門主管">部門主管</option>
+            <option value="處長或以上">處長或以上</option>
+        </select>
+    </div>
+    <div class="hidden" id="challenge-section">
+        <p id="challenge-text">請選擇你目前可能遇到的挑戰：</p>
+        <select id="challenge-input" onchange="submitChallenge()">
+            <option value="">-- 請選擇 --</option>
+        </select>
+    </div>
+    <div class="hidden" id="result-section"></div>
+    <button class="hidden" id="reload-button" onclick="reloadPage()">重新開始</button>
+    <script src="script.js"></script>
+</body>
+</html>
