@@ -64,6 +64,8 @@ function submitJobLevel() {
             option.text = challenge;
             challengeSelect.appendChild(option);
         });
+    } else {
+        console.error('No challenges found for the selected options');
     }
 
     document.getElementById("challenge-section").classList.remove("hidden");
@@ -86,6 +88,7 @@ function submitChallenge() {
         `;
     } else {
         resultSection.innerHTML = `<p>无法找到对应的反馈，请重新选择。</p>`;
+        console.error('No feedback found for the selected challenge');
     }
 
     resultSection.classList.remove("hidden");
