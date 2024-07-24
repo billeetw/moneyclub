@@ -3,7 +3,7 @@ let companySize, workType, jobLevel, data;
 function loadJSON(callback) {
     const xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'data.json', true); // 确保路径正确
+    xobj.open('GET', 'data.json', true); // 確保路徑正確
     xobj.onreadystatechange = function () {
         if (xobj.readyState === 4 && xobj.status === "200") {
             callback(JSON.parse(xobj.responseText));
@@ -80,68 +80,3 @@ function reloadPage() {
 }
 
 document.addEventListener("DOMContentLoaded", initialize);
-4. 检查CSS文件是否加载
-确保你的 styles.css 文件被正确加载，检查其内容：
-
-css
-複製程式碼
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    background-color: #f4f4f9;
-    color: #333;
-}
-
-h1 {
-    text-align: center;
-    color: #444;
-    margin-bottom: 20px;
-}
-
-.question, .result {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.hidden {
-    display: none;
-}
-
-select, button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-.result p {
-    margin: 10px 0;
-}
-
-#reload-button {
-    background-color: #007bff;
-}
-
-#reload-button:hover {
-    background-color: #0056b3;
-}
