@@ -1,83 +1,102 @@
-document.addEventListener("DOMContentLoaded", function() {
-    loadJSON();
-});
+let companySize, workType, jobLevel, data;
 
-function loadJSON() {
-    fetch('data.json')
-        .then(response => response.json())
-        .then(json => {
-            window.data = json;
-            console.log("Data loaded:", window.data);
-            initCompanySizeSelector();
-        })
-        .catch(error => console.error('Error loading JSON:', error));
+function loadJSON(callback) {
+    const xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data.json', true); // 确保路径正确
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState === 4) {
+            if (xobj.status === 200) {
+                callback(JSON.parse(xobj.responseText));
+            } else {
+                console.error('Failed to load JSON file:', xobj.status);
+            }
+        }
+    };
+    xobj.send(null);
 }
 
-function initCompanySizeSelector() {
-    const companySizeSelect = document.getElementById("company-size-input");
-    Object.keys(window.data["公司规模"]).forEach(size => {
-        let option = document.createElement("option");
-        option.value = size;
-        option.text = size;
-        companySizeSelect.appendChild(option);
+function initialize() {
+    loadJSON(function(response) {
+        data = response;
+        console.log('Data loaded:', data); // 确认数据已加载
+        if (data && data.challenges) {
+            document.getElementById("question-section").classList.remove("hidden");
+        } else {
+            console.error('Data is not loaded correctly or data structure is incorrect');
+        }
     });
 }
 
-function submitCompanySize() {
-    const companySize = document.getElementById("company-size-input").value;
-    const workTypeSelect = document.getElementById("work-type-input");
-    workTypeSelect.innerHTML = '';
-    Object.keys(window.data["公司规模"][companySize]).forEach(workType => {
-        let option = document.createElement("option");
-        option.value = workType;
-        option.text = workType;
-        workTypeSelect.appendChild(option);
-    });
+function submitAnswer() {
+    companySize = document.getElementById("user-input").value;
+    console.log('Selected company size:', companySize); // 调试信息
+    document.getElementById("question-section").classList.add("hidden");
     document.getElementById("work-type-section").classList.remove("hidden");
 }
 
 function submitWorkType() {
-    const companySize = document.getElementById("company-size-input").value;
-    const workType = document.getElementById("work-type-input").value;
-    const jobLevelSelect = document.getElementById("job-level-input");
-    jobLevelSelect.innerHTML = '';
-    Object.keys(window.data["公司规模"][companySize][workType]).forEach(jobLevel => {
-        let option = document.createElement("option");
-        option.value = jobLevel;
-        option.text = jobLevel;
-        jobLevelSelect.appendChild(option);
-    });
+    workType = document.getElementById("work-type-input").value;
+    console.log('Selected work type:', workType); // 调试信息
+    document.getElementById("work-type-section").classList.add("hidden");
     document.getElementById("job-level-section").classList.remove("hidden");
 }
 
 function submitJobLevel() {
-    const companySize = document.getElementById("company-size-input").value;
-    const workType = document.getElementById("work-type-input").value;
-    const jobLevel = document.getElementById("job-level-input").value;
+    jobLevel = document.getElementById("job-level-input").value;
+    console.log('Selected job level:', jobLevel); // 调试信息
+    document.getElementById("job-level-section").classList.add("hidden");
+
+    // 显示挑战选项
     const challengeSelect = document.getElementById("challenge-input");
     challengeSelect.innerHTML = '';
-    window.data["公司规模"][companySize][workType][jobLevel].forEach(challenge => {
-        let option = document.createElement("option");
-        option.value = challenge["挑战"];
-        option.text = challenge["挑战"];
-        challengeSelect.appendChild(option);
-    });
+
+    console.log('Data:', data);
+    console.log('Challenges:', data ? data.challenges : 'data is undefined');
+    console.log('Company Size:', companySize);
+    console.log('Work Type:', workType);
+    console.log('Job Level:', jobLevel);
+
+    if (data && data.challenges && data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
+        data.challenges[companySize][workType][jobLevel].forEach((challenge) => {
+            const option = document.createElement("option");
+            option.value = challenge;
+            option.text = challenge;
+            challengeSelect.appendChild(option);
+        });
+    } else {
+        console.error('No challenges found for the selected options');
+    }
+
     document.getElementById("challenge-section").classList.remove("hidden");
 }
 
 function submitChallenge() {
-    const companySize = document.getElementById("company-size-input").value;
-    const workType = document.getElementById("work-type-input").value;
-    const jobLevel = document.getElementById("job-level-input").value;
-    const challengeName = document.getElementById("challenge-input").value;
-    const challenge = window.data["公司规模"][companySize][workType][jobLevel].find(ch => ch["挑战"] === challengeName);
+    const challenge = document.getElementById("challenge-input").value;
     const resultSection = document.getElementById("result-section");
-    if (challenge) {
-        resultSection.innerHTML = `<p><strong>挑战：</strong>${challenge["挑战"]}</p>
-                                   <p><strong>风险：</strong>${challenge["风险"]}</p>
-                                   <p><strong>建议：</strong>${challenge["建议"].join('<br>')}</p>`;
-        resultSection.classList.remove("hidden");
+    const reloadButton = document.getElementById("reload-button");
+
+    console.log('Selected challenge:', challenge); // 调试信息
+    console.log('Feedback data:', data.feedback); // 调试信息
+
+    if (data.feedback[challenge]) {
+        const userFeedback = data.feedback[challenge];
+        resultSection.innerHTML = `
+            <p><strong>挑战：</strong> ${challenge}</p>
+            <p><strong>风险：</strong> ${userFeedback["風險"]}</p>
+            <p><strong>建议：</strong> ${userFeedback["建議"].join('<br>')}</p>
+        `;
     } else {
-        resultSection.innerHTML = `<p>未找到对应挑战的详细反馈，请检查数据文件或选择其他挑战。</p>`;
+        resultSection.innerHTML = `<p>无法找到对应的反馈，请重新选择。</p>`;
+        console.error('No feedback found for the selected challenge');
     }
+
+    resultSection.classList.remove("hidden");
+    reloadButton.classList.remove("hidden");
 }
+
+function reloadPage() {
+    location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", initialize);
