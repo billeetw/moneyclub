@@ -75,12 +75,15 @@ function submitChallenge() {
     const resultSection = document.getElementById("result-section");
     const reloadButton = document.getElementById("reload-button");
 
+    console.log('Selected challenge:', challenge); // 调试信息
+    console.log('Feedback data:', data.feedback); // 调试信息
+
     if (data.feedback[challenge]) {
         const userFeedback = data.feedback[challenge];
         resultSection.innerHTML = `
             <p><strong>挑战：</strong> ${challenge}</p>
-            <p><strong>风险：</strong> ${userFeedback["风险"]}</p>
-            <p><strong>建议：</strong> ${userFeedback["建议"].join('<br>')}</p>
+            <p><strong>风险：</strong> ${userFeedback["風險"]}</p>
+            <p><strong>建議：</strong> ${userFeedback["建議"].join('<br>')}</p>
         `;
     } else {
         resultSection.innerHTML = `<p>无法找到对应的反馈，请重新选择。</p>`;
