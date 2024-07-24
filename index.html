@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>賺錢俱樂部 課前指引：職業成長之旅</h1>
-    <div id="question-section">
+    <div id="question-section" class="hidden">
         <p id="question-text">請選擇你所服務的公司規模：</p>
         <select id="user-input" onchange="submitAnswer()">
             <option value="">-- 請選擇 --</option>
@@ -18,7 +18,7 @@
             <option value="跨國公司">跨國公司</option>
         </select>
     </div>
-    <div class="hidden" id="work-type-section">
+    <div id="work-type-section" class="hidden">
         <p id="work-type-text">請選擇你的工作類型：</p>
         <select id="work-type-input" onchange="submitWorkType()">
             <option value="">-- 請選擇 --</option>
@@ -29,7 +29,7 @@
             <option value="財務與法務">財務與法務</option>
         </select>
     </div>
-    <div class="hidden" id="job-level-section">
+    <div id="job-level-section" class="hidden">
         <p id="job-level-text">請選擇你的職務級別：</p>
         <select id="job-level-input" onchange="submitJobLevel()">
             <option value="">-- 請選擇 --</option>
@@ -40,14 +40,14 @@
             <option value="處長或以上">處長或以上</option>
         </select>
     </div>
-    <div class="hidden" id="challenge-section">
+    <div id="challenge-section" class="hidden">
         <p id="challenge-text">請選擇你目前可能遇到的挑戰：</p>
         <select id="challenge-input" onchange="submitChallenge()">
             <option value="">-- 請選擇 --</option>
         </select>
     </div>
-    <div class="hidden" id="result-section"></div>
-    <button class="hidden" id="reload-button" onclick="reloadPage()">重新開始</button>
+    <div id="result-section" class="hidden"></div>
+    <button id="reload-button" class="hidden" onclick="reloadPage()">重新開始</button>
     <script src="script.js"></script>
 </body>
 </html>
