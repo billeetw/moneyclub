@@ -9,7 +9,7 @@ function loadJSON(callback) {
             if (xobj.status === 200) {
                 callback(JSON.parse(xobj.responseText));
             } else {
-                console.error('Failed to load JSON file');
+                console.error('Failed to load JSON file:', xobj.status);
             }
         }
     };
@@ -48,12 +48,14 @@ function submitJobLevel() {
     const challengeSelect = document.getElementById("challenge-input");
     challengeSelect.innerHTML = '';
 
-    console.log('Challenges:', data.challenges); // 调试信息
+    // 调试信息
+    console.log('Data:', data);
+    console.log('Challenges:', data ? data.challenges : 'data is undefined');
     console.log('Company Size:', companySize);
     console.log('Work Type:', workType);
     console.log('Job Level:', jobLevel);
 
-    if (data.challenges && data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
+    if (data && data.challenges && data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
         data.challenges[companySize][workType][jobLevel].forEach((challenge) => {
             const option = document.createElement("option");
             option.value = challenge;
@@ -83,7 +85,7 @@ function submitChallenge() {
         resultSection.innerHTML = `
             <p><strong>挑战：</strong> ${challenge}</p>
             <p><strong>风险：</strong> ${userFeedback["風險"]}</p>
-            <p><strong>建議：</strong> ${userFeedback["建議"].join('<br>')}</p>
+            <p><strong>建议：</strong> ${userFeedback["建議"].join('<br>')}</p>
         `;
     } else {
         resultSection.innerHTML = `<p>无法找到对应的反馈，请重新选择。</p>`;
