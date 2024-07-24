@@ -20,7 +20,11 @@ function initialize() {
     loadJSON(function(response) {
         data = response;
         console.log('Data loaded:', data); // 确认数据已加载
-        document.getElementById("question-section").classList.remove("hidden");
+        if (data && data.challenges) {
+            document.getElementById("question-section").classList.remove("hidden");
+        } else {
+            console.error('Data is not loaded correctly or data structure is incorrect');
+        }
     });
 }
 
@@ -43,9 +47,13 @@ function submitJobLevel() {
     // 显示挑战选项
     const challengeSelect = document.getElementById("challenge-input");
     challengeSelect.innerHTML = '';
-    console.log('Challenges:', data.challenges); // 调试信息
 
-    if (data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
+    console.log('Challenges:', data.challenges); // 调试信息
+    console.log('Company Size:', companySize);
+    console.log('Work Type:', workType);
+    console.log('Job Level:', jobLevel);
+
+    if (data.challenges && data.challenges[companySize] && data.challenges[companySize][workType] && data.challenges[companySize][workType][jobLevel]) {
         data.challenges[companySize][workType][jobLevel].forEach((challenge) => {
             const option = document.createElement("option");
             option.value = challenge;
